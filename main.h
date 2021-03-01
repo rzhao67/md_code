@@ -11,3 +11,15 @@ typedef struct {
 // typedef struct {
 //     REAL val, sum, sum2;
 // } Prop;
+
+typedef enum {N_I, N_R} VType;
+
+typedef struct {
+	char *vName;
+	void *vPtr;
+	VType vType;
+	int vLen, vStatus;
+} NameList;
+
+/* Function definitions */
+int GetNameList(int argc, char **argv);
