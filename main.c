@@ -1,5 +1,10 @@
 #include "main.h"
 #include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <string.h>
+#include <signal.h>
+#include <sys/time.h>
 
 // #define Vadd(v1, v2, v3) \
 // 	(v1).x = (v2).x + (v3).x, \
@@ -85,21 +90,21 @@ NameList nameList[] = {
     NameI(stepEquil),
     NameI(stepLimit),
     NameR(temperature),
-    NameI(limitVel),
-    NameR(rangeVel),
-    NameI(sizeHistVel),
-    NameI(stepVel),
-    NameI(randSeed),
+    // NameI(limitVel),
+    // NameR(rangeVel),
+    // NameI(sizeHistVel),
+    // NameI(stepVel),
+    // NameI(randSeed),
 };
 
 int GetNameList(int argc, char **argv) {
     int id, j, k, match, ok;
     char buff[80], *token;
     FILE *fp;
-
-    strcpy(buff, argv[0]);
+    printf("%i \n", argc);
+    strcpy(buff, argv[0]);  // Copies the executable name into buff
     strcat(buff, ".in");
-    if ((fp = fopen (buff, "r")) == 0) return (0);
+    if ((fp = fopen(buff, "r")) == 0) return (0);
     for (k = 0; k < sizeof(nameList) / sizeof(NameList); k++)
         nameList[k].vStatus = 0;
     ok = 1;
@@ -151,45 +156,45 @@ int GetNameList(int argc, char **argv) {
     return (ok);
 }
 
-void PrintNameList(FILE *fp) {
-    int j, k;
+// void PrintNameList(FILE *fp) {
+//     int j, k;
 
-    fprintf(fp, "NameList -- data\n");
-    for (k = 0; k < sizeof(NameList) / sizeof(NameList); k++) {
-        fprintf(fp, "%s\t", nameList[k].vName);
-        if (strlen(nameList[k].vName) < 8) fprintf(fp, "\t");
-        if (nameList[k].vStatus > 0) {
-            for (j = 0; j < nameList[k].vLen; j++) {
-                switch (nameList[k].vType) {
-                    case N_I:
-                        fprintf(fp, "%d ", *NP_I);
-                        break;
-                    case N_R:
-                        fprintf(fp, "%#g ", *NP_R);
-                        break;
-                }
-            }
-        }
-        switch (nameList[k].vStatus) {
-            case 0:
-                fprintf(fp, "** no data");
-                break;
-            case 1:
-                break;
-            case 2:
-                fprintf(fp, "** missing data");
-                break;
-            case 3:
-                fprintf(fp, "** extra data");
-                break;
-            case 4:
-                fprintf(fp, "** multiply defined");
-                break;
-        }
-        fprintf(fp, "\n");
-    }
-    fprintf(fp, "----\n");
-}
+//     fprintf(fp, "NameList -- data\n");
+//     for (k = 0; k < sizeof(NameList) / sizeof(NameList); k++) {
+//         fprintf(fp, "%s\t", nameList[k].vName);
+//         if (strlen(nameList[k].vName) < 8) fprintf(fp, "\t");
+//         if (nameList[k].vStatus > 0) {
+//             for (j = 0; j < nameList[k].vLen; j++) {
+//                 switch (nameList[k].vType) {
+//                     case N_I:
+//                         fprintf(fp, "%d ", *NP_I);
+//                         break;
+//                     case N_R:
+//                         fprintf(fp, "%#g ", *NP_R);
+//                         break;
+//                 }
+//             }
+//         }
+//         switch (nameList[k].vStatus) {
+//             case 0:
+//                 fprintf(fp, "** no data");
+//                 break;
+//             case 1:
+//                 break;
+//             case 2:
+//                 fprintf(fp, "** missing data");
+//                 break;
+//             case 3:
+//                 fprintf(fp, "** extra data");
+//                 break;
+//             case 4:
+//                 fprintf(fp, "** multiply defined");
+//                 break;
+//         }
+//         fprintf(fp, "\n");
+//     }
+//     fprintf(fp, "----\n");
+// }
 
 // void SingleStep() {
 // 	++stepCount;
@@ -386,7 +391,7 @@ void PrintNameList(FILE *fp) {
 // }
 
 int main(int argc, char **argv) {
-	// GetNameList(argc, argv);
+	GetNameList(argc, argv);
     // printf("%i %c", argc, *argv[1]);
 	// PrintNameList(stdout);
 	// SetParams();
