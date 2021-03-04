@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 typedef double REAL;  // Real number
 typedef struct {
 	REAL x, y;
@@ -7,7 +9,7 @@ typedef struct {
 } Mol;  // Position, velocity, and acceleration vectors associated with an atom or molecule
 typedef struct {
     int x, y;
-} VecI;
+} VecI; // 2D vector of integers
 // typedef struct {
 //     REAL val, sum, sum2;
 // } Prop;

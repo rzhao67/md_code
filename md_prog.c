@@ -107,7 +107,7 @@ int GetNameList(int argc, char **argv) {
     strcat(buff, ".in");
     if ((fp = fopen(buff, "r")) == 0) return (0);
     for (k = 0; k < sizeof(nameList) / sizeof(NameList); k++)
-        nameList[k].vStatus = 0;
+        nameList[k].vStatus = 0;  // Initialize nameList
     ok = 1;
     while (1) {
         fgets(buff, 80, fp);
@@ -393,10 +393,10 @@ void PrintNameList(FILE *fp) {
 
 int main(int argc, char **argv) {
 	int ok = GetNameList(argc, argv);
-    if (!ok) {
-        printf("Error in input file.\n");
-        return -1;
-    }
+    // if (!ok) {
+    //     printf("Error in input file.\n");
+    //     return -1;
+    // }
 	PrintNameList(stdout);
 	// SetParams();
 	// SetupJob();
