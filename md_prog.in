@@ -5,4 +5,8 @@ stepAvg       100
 stepEquil     0
 stepLimit     10000
 temperature   1.
-
+limitVel      4
+rangeVel      3.
+sizeHistVel   5
+stepVel       5
+randSeed      10
