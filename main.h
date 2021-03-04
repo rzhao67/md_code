@@ -5,9 +5,9 @@ typedef struct {
 typedef struct {
 	VecR r, rv, ra;
 } Mol;  // Position, velocity, and acceleration vectors associated with an atom or molecule
-// typedef struct {
-//     int x, y;
-// } VecI;
+typedef struct {
+    int x, y;
+} VecI;
 // typedef struct {
 //     REAL val, sum, sum2;
 // } Prop;
@@ -23,3 +23,4 @@ typedef struct {
 
 /* Function definitions */
 int GetNameList(int argc, char **argv);
+void PrintNameList(FILE *fp);

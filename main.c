@@ -74,10 +74,11 @@
 
 // Mol *mol;
 // VecR region, vSum;
-// VecI initUCell;
+VecI initUcell;
 // Prop kinEnergy, pressure, totEnergy;
-// REAL deltaT, density, rCut, temperature, timeNow, uSum, velMag, virSum, vvSum;
+REAL deltaT, density, temperature;// rCut, timeNow, uSum, velMag, virSum, vvSum;
 // int moreCycles, nMol, stepAvg, stepCount, stepEquil, stepLimit;
+int stepAvg, stepEquil, stepLimit;
 // REAL *histVel, rangeVel;
 // int countVel, limitVel, sizeHistVel, stepVel;
 // REAL hFunction;
@@ -156,45 +157,45 @@ int GetNameList(int argc, char **argv) {
     return (ok);
 }
 
-// void PrintNameList(FILE *fp) {
-//     int j, k;
+void PrintNameList(FILE *fp) {
+    int j, k;
 
-//     fprintf(fp, "NameList -- data\n");
-//     for (k = 0; k < sizeof(NameList) / sizeof(NameList); k++) {
-//         fprintf(fp, "%s\t", nameList[k].vName);
-//         if (strlen(nameList[k].vName) < 8) fprintf(fp, "\t");
-//         if (nameList[k].vStatus > 0) {
-//             for (j = 0; j < nameList[k].vLen; j++) {
-//                 switch (nameList[k].vType) {
-//                     case N_I:
-//                         fprintf(fp, "%d ", *NP_I);
-//                         break;
-//                     case N_R:
-//                         fprintf(fp, "%#g ", *NP_R);
-//                         break;
-//                 }
-//             }
-//         }
-//         switch (nameList[k].vStatus) {
-//             case 0:
-//                 fprintf(fp, "** no data");
-//                 break;
-//             case 1:
-//                 break;
-//             case 2:
-//                 fprintf(fp, "** missing data");
-//                 break;
-//             case 3:
-//                 fprintf(fp, "** extra data");
-//                 break;
-//             case 4:
-//                 fprintf(fp, "** multiply defined");
-//                 break;
-//         }
-//         fprintf(fp, "\n");
-//     }
-//     fprintf(fp, "----\n");
-// }
+    fprintf(fp, "NameList -- data\n");
+    for (k = 0; k < sizeof(NameList) / sizeof(NameList); k++) {
+        fprintf(fp, "%s\t", nameList[k].vName);
+        if (strlen(nameList[k].vName) < 8) fprintf(fp, "\t");
+        if (nameList[k].vStatus > 0) {
+            for (j = 0; j < nameList[k].vLen; j++) {
+                switch (nameList[k].vType) {
+                    case N_I:
+                        fprintf(fp, "%d ", *NP_I);
+                        break;
+                    case N_R:
+                        fprintf(fp, "%#g ", *NP_R);
+                        break;
+                }
+            }
+        }
+        switch (nameList[k].vStatus) {
+            case 0:
+                fprintf(fp, "** no data");
+                break;
+            case 1:
+                break;
+            case 2:
+                fprintf(fp, "** missing data");
+                break;
+            case 3:
+                fprintf(fp, "** extra data");
+                break;
+            case 4:
+                fprintf(fp, "** multiply defined");
+                break;
+        }
+        fprintf(fp, "\n");
+    }
+    fprintf(fp, "----\n");
+}
 
 // void SingleStep() {
 // 	++stepCount;
@@ -391,9 +392,12 @@ int GetNameList(int argc, char **argv) {
 // }
 
 int main(int argc, char **argv) {
-	GetNameList(argc, argv);
-    // printf("%i %c", argc, *argv[1]);
-	// PrintNameList(stdout);
+	int ok = GetNameList(argc, argv);
+    if (!ok) {
+        printf("Error in input file.\n");
+        return -1;
+    }
+	PrintNameList(stdout);
 	// SetParams();
 	// SetupJob();
 	// moreCycles = 1;
